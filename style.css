@@ -1,5 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
-
+/* @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"); */
+@font-face {
+  font-family: "Indie Flower";
+  src: url(./fonts/IndieFlower-Regular.ttf);
+}
 /* Global */
 :root {
   --color-dark-red: hsl(0, 70%, 38%);
@@ -17,6 +20,16 @@ body {
   background-image: url(images/background-1.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
+}
+.footer {
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  left: 50%;
+  bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  transform: translateX(-50%);
 }
 
 /* grid  */
@@ -42,6 +55,7 @@ body {
   align-items: center;
   width: 100vw;
   height: 100vh;
+  animation: movein 3s ease-in;
 }
 .grid {
   display: grid;
@@ -50,6 +64,7 @@ body {
   column-gap: 5px;
   row-gap: 5px;
   margin-bottom: 30px;
+  animation: movein .5s ease-in;
 }
 i.hidden {
   display: none;
@@ -72,13 +87,15 @@ ul.nav-list {
   list-style-type: none;
   display: inline;
   border-bottom: 2px solid black;
-  transition: 0.5s;
+  transition: 0.3s;
+  font-size: 2.5rem;
 }
 .nav-item:hover {
   font-size: 3.5rem;
   cursor: pointer;
   border-bottom: 5px solid var(--color-dark-red);
-  transition: 0.5s;
+  transform: translateY(-30px);
+  transition: 0.3s;
   color: var(--color-dark-red);
 }
 nav.hide-nav {
@@ -86,8 +103,9 @@ nav.hide-nav {
 }
 .title {
   text-align: center;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
   font-size: 5.8rem;
+  
 }
 p.result-text {
   text-align: center;
@@ -144,3 +162,7 @@ p.result-text {
     transform: scale(1);
   }
 }
+@keyframes movein {0% {opacity: 0;}100% {opacity: 1;}
+}
+
+
