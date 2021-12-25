@@ -166,64 +166,65 @@ const showIcons = function (e) {
     // start checking icons when we have two
     if (pair.length === 2) {
         // if the first icon's unique class is not equal to the second icon's unique class ->
-        if (pair[0].classList[1] != pair[1].classList[1]) {
-            // remove listeners from all cells to prevent multiple clicking
-            arrayOfCells.forEach(el => {
-                el.removeEventListener('click', showIcons);
-            })
-            // after third of a second turn on hidden class on the two clicked icons and hide them
-            setTimeout(() => {
-                document.getElementById(pair[0].id).classList.toggle('hidden');
-                document.getElementById(pair[1].id).classList.toggle('hidden');
-                arrayOfCells.forEach(el => {
-                    el.addEventListener('click', showIcons);
-                })
-            }, 300)
-            // if the first icon's unique class EQUALS to the second icon's unique class ->
-        } else {
-            // remove shaking animation on guessed icons
-            document.getElementById(pair[0].id).classList.toggle('wave', false);
-            document.getElementById(pair[0].id).parentElement.style.opacity = '0.5';
-            document.getElementById(pair[1].id).classList.toggle('wave', false);
-            document.getElementById(pair[1].id).parentElement.style.opacity = '0.5';
-            // document.getElementById(pair[1].id).style.opacity = '0.5';
+        pair[0].classList[1] != pair[1].classList[1] ? flipUnguessedCells() : freezeGuessedCells();
+    }
+}
 
-            // before the game ends (if the counter for guessed cells is more then 0)
-            if (guessedCells !== 0) {
-                //filter the array of cells - delete those which id is in the pair (thee were guessed correctly)
-                arrayOfCells = arrayOfCells.filter(item => {
-                    return (item.children[0].id != pair[0].id && item.children[0].id != pair[1].id)
-                })
-                // remove listeners from the guessed cells
-                pair[0].parentElement.removeEventListener('click', showIcons);
-                pair[1].parentElement.removeEventListener('click', showIcons);
-                // decrement the counter by two (two cells of the whole amount are guessed and visible)
-                guessedCells -= 2;
-                // when the counter is 0 the game ends
-                if (guessedCells === 0) return isWinner();
-            }
-        }
+function flipUnguessedCells() {
+      // remove listeners from all cells to prevent multiple clicking
+      arrayOfCells.forEach(el => {
+        el.removeEventListener('click', showIcons);
+    })
+    // after third of a second turn on hidden class on the two clicked icons and hide them
+    setTimeout(() => {
+        document.getElementById(pair[0].id).classList.toggle('hidden');
+        document.getElementById(pair[1].id).classList.toggle('hidden');
+        arrayOfCells.forEach(el => {
+            el.addEventListener('click', showIcons);
+        })
+    }, 300)
+}
+function freezeGuessedCells(){
+     // remove shaking animation on guessed icons
+     document.getElementById(pair[0].id).classList.toggle('wave', false);
+     document.getElementById(pair[0].id).parentElement.style.opacity = '0.5';
+     document.getElementById(pair[1].id).classList.toggle('wave', false);
+     document.getElementById(pair[1].id).parentElement.style.opacity = '0.5';
+     // document.getElementById(pair[1].id).style.opacity = '0.5';
+     // before the game ends (if the counter for guessed cells is more then 0)
+     if (guessedCells !== 0) {
+        //filter the array of cells - delete those which id is in the pair (thee were guessed correctly)
+        arrayOfCells = arrayOfCells.filter(item => {
+            return (item.children[0].id != pair[0].id && item.children[0].id != pair[1].id)
+        })
+        // remove listeners from the guessed cells
+        pair[0].parentElement.removeEventListener('click', showIcons);
+        pair[1].parentElement.removeEventListener('click', showIcons);
+        // decrement the counter by two (two cells of the whole amount are guessed and visible)
+        guessedCells -= 2;
+        // when the counter is 0 the game ends
+        if (guessedCells === 0) return isWinner();
     }
 }
 
 // runs when all the pairs are guessed
 function isWinner() {
     setTimeout(()=>{
-    // deletes grid
-    grid.textContent = '';
-    grid.remove();
-    // CLEAR GLOBAL VARIABLES
-    widthGrid, heightGrid,guessedCells = undefined;
-    pair = [];
-    // changes boolean because the game was finished
-    isGameOver = true;
-    // append the text for the title depending on from where we run isWinner
-    showTitle();
-    // show the navigation
-    nav.classList.toggle('hide-nav');
-    // hide home button
-    homeButton.style.visibility = 'hidden';
-        }, 500)  
+        // deletes grid
+        grid.textContent = '';
+        grid.remove();
+        // CLEAR GLOBAL VARIABLES
+        widthGrid, heightGrid,guessedCells = undefined;
+        pair = [];
+        // changes boolean because the game was finished
+        isGameOver = true;
+        // append the text for the title depending on from where we run isWinner
+        showTitle();
+        // show the navigation
+        nav.classList.toggle('hide-nav');
+        // hide home button
+        homeButton.style.visibility = 'hidden';
+    }, 500)  
 }
 
 // appends innerText of the title depending on if the game was started or finished
