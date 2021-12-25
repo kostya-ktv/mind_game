@@ -124,18 +124,18 @@ const generateCells = async function (w, h, g) { //w-width(colums)    //h-height
         icon.id = i;
         cell.append(icon);
         g.append(cell);
-       
-        //EVENT LISTENER ON THE CELL
-        
+
     }
-    
-    setTimeout(()=>{ 
-        arrayOfCells.forEach(el=>{
+    //show icons and then turn on the class hidden and add event listener
+    //EVENT LISTENERS ON THE CELL
+
+    setTimeout(() => {
+        arrayOfCells.forEach(el => {
             el.children[0].classList.add('hidden');
             el.addEventListener('click', showIcons);
         })
-    
-      }, widthGrid * 500)
+
+    }, widthGrid * 500)
 }
 
 //shows clicked icons
@@ -195,11 +195,18 @@ function isWinner() {
     heightGrid = undefined;
     guessedCells = undefined;
     pair = [];
+    // show the navigation
     nav.classList.toggle('hide-nav');
 }
 
 const showMainMenu = function () {
     nav.classList.toggle('hide-nav');
+    //create heading for the game name
+    let h1 = document.createElement('h1');
+    h1.innerText = 'Find The Pair';
+    h1.classList.add('game-name');
+    // append h1 to the nav befor the ul.nav-list
+    nav.insertBefore(h1, navList);
     // create 3 li's for 3 levels of difficulty
     let liEasy = document.createElement('li');
     let liMedium = document.createElement('li');
