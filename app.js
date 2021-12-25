@@ -52,7 +52,6 @@ const classes = ['fa-star',
     'fa-bread-slice',
     'fa-camera',
     'fa-flag',
-    'fa-igloo',
     'fa-key',
     'fa-peace',
     'fa-paw',
@@ -75,11 +74,13 @@ let pair = []; //array to save two opened cells to check if they are equal, the 
 let arrayOfCells; //array of DOM cells that were created for the game, is used to add event listeners after guessing right, on the rest of the cells
 let grid = document.createElement('div'); //container to render grid
 const container = document.querySelector('.container'); //container to append the grid, exists in the body
-const nav = document.querySelector('.navigation');
-const navList = document.querySelector('.nav-list');
-const title = document.querySelector('h1');
-const homeButton = document.querySelector('.home-button');
-let isGameOver = false;
+const nav = document.querySelector('.navigation'); //navbar 
+const navList = document.querySelector('.nav-list'); //ul
+const title = document.querySelector('h1'); //title
+const resultText = document.querySelector('.result-text');
+const homeButton = document.querySelector('.home-button'); // igloo-home-button
+let isGameOver = false; //if game is finished
+let resultTime;
 
 
 
@@ -87,14 +88,20 @@ let isGameOver = false;
 
 // gets the needed amount of unique icon classes depending on the size of the grid, and pushes each class twice to create pairs
 const getClasses = function (number) {
-    let array = [];
+    shuffleArray(classes);
+    let newGameClasses = [];
     for (let i = 0; i < number; i++) {
-        array.push(classes[i]);
-        array.push(classes[i]);
+        newGameClasses.push(classes[i]);
+        newGameClasses.push(classes[i]);
     }
     // shuffles the array, so each icon gets random position
+    // array.sort(() => Math.random() - 0.5);
+    shuffleArray(newGameClasses);
+    return newGameClasses;
+}
+
+const shuffleArray = function (array) {
     array.sort(() => Math.random() - 0.5);
-    return array;
 }
 
 // generates grid, takes two values - number of columns(width), and number of rows(height)
@@ -105,6 +112,8 @@ const generateGrid = function (cols, rows) {
     // calls function to create cells and append them to the grid container
     generateCells(cols, rows, grid);
     container.append(grid);
+    resultTime = new Date();
+    // console.log(resultTime);
     homeButton.style.visibility = 'visible';
     //creates array using spread operator from the NodeList
     //(in order to perfom filter function) to add event listeners on the cells that are still not guessed after filtering them
@@ -200,13 +209,13 @@ const showIcons = function (e) {
 function isWinner() {
     grid.textContent = '';
     grid.remove();
-
     // CLEAR GLOBAL VARIABLES
     widthGrid = undefined;
     heightGrid = undefined;
     guessedCells = undefined;
     pair = [];
     isGameOver = true;
+    // append the text for the title
     showTitle();
     // show the navigation
     nav.classList.toggle('hide-nav');
@@ -214,10 +223,15 @@ function isWinner() {
 }
 
 const showTitle = function () {
-
-    isGameOver ? title.innerText = 'Good Job! Try again?' : title.innerText = '" Find The Pair "';
+    // let p = document.createElement('p');
+    // p.innerText
+    if (isGameOver) {
+        title.innerText = 'Good Job! Try again?';
+        resultText.innerText = showTime();
+    } else {
+        title.innerText = '" Find The Pair "';
+    }
     title.classList.add('title');
-
 }
 
 const showMainMenu = function () {
@@ -256,10 +270,19 @@ const showMainMenu = function () {
     })
 }
 
+const showTime = function () {
+    let minutes = Math.floor((new Date - resultTime) / 1000 / 60);
+    let seconds = Math.floor((new Date - resultTime) / 1000 % 60);
+    return `Your result is 00:${minutes}${seconds}`;
+}
+
 homeButton.addEventListener('click', () => {
     isWinner();
     title.innerText = 'Wanna Try Another Level?'
+    resultText.innerText = '';
 })
 
 
 showMainMenu();
+
+// 00:56
