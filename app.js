@@ -171,8 +171,8 @@ const showIcons = function (e) {
 }
 
 function flipUnguessedCells() {
-      // remove listeners from all cells to prevent multiple clicking
-      arrayOfCells.forEach(el => {
+    // remove listeners from all cells to prevent multiple clicking
+    arrayOfCells.forEach(el => {
         el.removeEventListener('click', showIcons);
     })
     // after third of a second turn on hidden class on the two clicked icons and hide them
@@ -184,15 +184,14 @@ function flipUnguessedCells() {
         })
     }, 300)
 }
-function freezeGuessedCells(){
-     // remove shaking animation on guessed icons
-     document.getElementById(pair[0].id).classList.toggle('wave', false);
-     document.getElementById(pair[0].id).parentElement.style.opacity = '0.5';
-     document.getElementById(pair[1].id).classList.toggle('wave', false);
-     document.getElementById(pair[1].id).parentElement.style.opacity = '0.5';
-     // document.getElementById(pair[1].id).style.opacity = '0.5';
-     // before the game ends (if the counter for guessed cells is more then 0)
-     if (guessedCells !== 0) {
+function freezeGuessedCells() {
+    // remove shaking animation on guessed icons
+    document.getElementById(pair[0].id).classList.toggle('wave', false);
+    document.getElementById(pair[0].id).parentElement.style.opacity = '0.5';
+    document.getElementById(pair[1].id).classList.toggle('wave', false);
+    document.getElementById(pair[1].id).parentElement.style.opacity = '0.5';
+    // before the game ends (if the counter for guessed cells is more then 0)
+    if (guessedCells !== 0) {
         //filter the array of cells - delete those which id is in the pair (thee were guessed correctly)
         arrayOfCells = arrayOfCells.filter(item => {
             return (item.children[0].id != pair[0].id && item.children[0].id != pair[1].id)
@@ -209,22 +208,23 @@ function freezeGuessedCells(){
 
 // runs when all the pairs are guessed
 function isWinner() {
-    setTimeout(()=>{
+
+    setTimeout(() => {
         // deletes grid
         grid.textContent = '';
         grid.remove();
         // CLEAR GLOBAL VARIABLES
-        widthGrid, heightGrid,guessedCells = undefined;
+        widthGrid, heightGrid, guessedCells = undefined;
         pair = [];
         // changes boolean because the game was finished
         isGameOver = true;
-        // append the text for the title depending on from where we run isWinner
-        showTitle();
         // show the navigation
         nav.classList.toggle('hide-nav');
         // hide home button
         homeButton.style.visibility = 'hidden';
-    }, 500)  
+    }, 500);
+    // show the text of rerun/game over
+    showTitle();
 }
 
 // appends innerText of the title depending on if the game was started or finished
@@ -288,9 +288,10 @@ const showTime = function () {
     return `Your result is 00:${minutes}:${seconds}`;
 }
 
+
 // event listener for the home button
 homeButton.addEventListener('click', () => {
-    // if it was clicked start new game
+    // if it was clicked - start new game
     isWinner();
     // change the title
     title.innerText = 'Wanna Try Another Level?'
