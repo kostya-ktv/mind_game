@@ -108,7 +108,7 @@ const generateGrid = function (cols, rows) {
 }
 
 //generates cells, takes 3 arguments, creates needed amount of cells (width*height), appends them to the grid
-const generateCells = function (w, h, g) { //w-width(colums)    //h-height(rows)   //g-grid
+const generateCells = async function (w, h, g) { //w-width(colums)    //h-height(rows)   //g-grid
     //choose unique classes for each sell
     //      we are pushing each element twice to the array, so we need (number of cells / 2) classes
     let cellClassesArr = getClasses(w * h / 2);
@@ -119,14 +119,23 @@ const generateCells = function (w, h, g) { //w-width(colums)    //h-height(rows)
         // the first class ('fas') is necessary class for fontawesome icons
         // second is a unique class responsible for the kind of icon,
         // class hidden hides icons before clicking
-        icon.classList.add('fas', cellClassesArr[i], 'hidden');
+        icon.classList.add('fas', cellClassesArr[i]);
         // attach to each icon unique id
         icon.id = i;
         cell.append(icon);
         g.append(cell);
+       
         //EVENT LISTENER ON THE CELL
-        cell.addEventListener('click', showIcons);
+        
     }
+    
+    setTimeout(()=>{ 
+        arrayOfCells.forEach(el=>{
+            el.children[0].classList.add('hidden');
+            el.addEventListener('click', showIcons);
+        })
+    
+      }, widthGrid * 500)
 }
 
 //shows clicked icons
