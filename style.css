@@ -6,7 +6,7 @@
   --color-dark-red: hsl(0, 70%, 38%);
   --color-light-green: #38b638;
   --color-dark-green: #102e03;
-  --color-light-brown: rgba(186, 171, 126, 0.995);
+  --color-light-brown: rgba(210, 197, 160, 0.99);
   --color-light-blue: rgb(137, 195, 216);
   --font-family: "Indie Flower", cursive;
 }
@@ -24,6 +24,11 @@ body {
 /* grid  */
 .cell {
   background-color: var(--color-light-brown);
+  background: linear-gradient(
+    to bottom right,
+    var(--color-light-brown),
+    rgba(176, 173, 163, 0.85)
+  );
   display: flex;
   justify-content: center;
   align-items: center;
