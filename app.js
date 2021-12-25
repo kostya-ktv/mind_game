@@ -1,5 +1,3 @@
-// ADD 4 MORE CLASSES!!!!!!?????
-
 
 // --- ICONS TO CREATE THE GAME
 
@@ -61,8 +59,8 @@ const classes = ['fa-star',
     'fa-hippo',
     'fa-dog',
     'fa-cloud-showers-heavy',
-    'fa-virus'
 ];
+console.log(classes.length);
 
 
 //--- VARIABLES ---
@@ -82,6 +80,7 @@ const homeButton = document.querySelector('.home-button'); // igloo-home-button
 let isGameOver = false; //if game is finished
 let resultTime;
 
+console.log(classes.length);
 
 
 //--- FUNCTIONS ---
