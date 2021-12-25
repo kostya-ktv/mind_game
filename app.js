@@ -77,6 +77,9 @@ let grid = document.createElement('div'); //container to render grid
 const container = document.querySelector('.container'); //container to append the grid, exists in the body
 const nav = document.querySelector('.navigation');
 const navList = document.querySelector('.nav-list');
+const title = document.querySelector('h1');
+const homeButton = document.querySelector('.home-button');
+let isGameOver = false;
 
 
 
@@ -102,13 +105,16 @@ const generateGrid = function (cols, rows) {
     // calls function to create cells and append them to the grid container
     generateCells(cols, rows, grid);
     container.append(grid);
+    homeButton.style.visibility = 'visible';
     //creates array using spread operator from the NodeList
     //(in order to perfom filter function) to add event listeners on the cells that are still not guessed after filtering them
     arrayOfCells = [...document.querySelectorAll('.cell')];
+    // adjust the font size by deviding the given number by the amount of colums in the grid    
+    arrayOfCells.forEach(el => el.style.fontSize = `${25 / cols}rem`);
 }
 
 //generates cells, takes 3 arguments, creates needed amount of cells (width*height), appends them to the grid
-const generateCells = async function (w, h, g) { //w-width(colums)    //h-height(rows)   //g-grid
+const generateCells = function (w, h, g) { //w-width(colums)    //h-height(rows)   //g-grid
     //choose unique classes for each sell
     //      we are pushing each element twice to the array, so we need (number of cells / 2) classes
     let cellClassesArr = getClasses(w * h / 2);
@@ -168,7 +174,11 @@ const showIcons = function (e) {
         } else {
             // remove shaking animation on guessed icons
             document.getElementById(pair[0].id).classList.toggle('wave', false);
+            document.getElementById(pair[0].id).parentElement.style.opacity = '0.5';
             document.getElementById(pair[1].id).classList.toggle('wave', false);
+            document.getElementById(pair[1].id).parentElement.style.opacity = '0.5';
+            // document.getElementById(pair[1].id).style.opacity = '0.5';
+
             // before the game ends (if the counter for guessed cells is more then 0)
             if (guessedCells !== 0) {
                 //filter the array of cells - delete those which id is in the pair (thee were guessed correctly)
@@ -190,23 +200,30 @@ const showIcons = function (e) {
 function isWinner() {
     grid.textContent = '';
     grid.remove();
+
     // CLEAR GLOBAL VARIABLES
     widthGrid = undefined;
     heightGrid = undefined;
     guessedCells = undefined;
     pair = [];
+    isGameOver = true;
+    showTitle();
     // show the navigation
     nav.classList.toggle('hide-nav');
+    homeButton.style.visibility = 'hidden';
+}
+
+const showTitle = function () {
+
+    isGameOver ? title.innerText = 'Good Job! Try again?' : title.innerText = '" Find The Pair "';
+    title.classList.add('title');
+
 }
 
 const showMainMenu = function () {
     nav.classList.toggle('hide-nav');
-    //create heading for the game name
-    let h1 = document.createElement('h1');
-    h1.innerText = 'Find The Pair';
-    h1.classList.add('game-name');
-    // append h1 to the nav befor the ul.nav-list
-    nav.insertBefore(h1, navList);
+    // change the header text for start/end of the game
+    showTitle();
     // create 3 li's for 3 levels of difficulty
     let liEasy = document.createElement('li');
     let liMedium = document.createElement('li');
@@ -228,6 +245,7 @@ const showMainMenu = function () {
             nav.classList.remove('hide-nav');
             // widthGrid (number of columns) and heightGrid (number of rows) will get the value from the data attribute
             widthGrid = el.dataset.size;
+            // console.log(el.dataset.size);
             heightGrid = el.dataset.size;
             // initialize counter to start count guessed pairs
             guessedCells = widthGrid * heightGrid;
@@ -237,6 +255,11 @@ const showMainMenu = function () {
         })
     })
 }
+
+homeButton.addEventListener('click', () => {
+    isWinner();
+    title.innerText = 'Wanna Try Another Level?'
+})
 
 
 showMainMenu();
