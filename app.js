@@ -208,13 +208,12 @@ const showIcons = function (e) {
 
 // runs when all the pairs are guessed
 function isWinner() {
+    setTimeout(()=>{
     // deletes grid
     grid.textContent = '';
     grid.remove();
     // CLEAR GLOBAL VARIABLES
-    widthGrid = undefined;
-    heightGrid = undefined;
-    guessedCells = undefined;
+    widthGrid, heightGrid,guessedCells = undefined;
     pair = [];
     // changes boolean because the game was finished
     isGameOver = true;
@@ -224,6 +223,7 @@ function isWinner() {
     nav.classList.toggle('hide-nav');
     // hide home button
     homeButton.style.visibility = 'hidden';
+        }, 500)  
 }
 
 // appends innerText of the title depending on if the game was started or finished
