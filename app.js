@@ -95,8 +95,8 @@ const getClasses = function (number) {
     let newGameClasses = [];
     // appends each icon twice to get pairs
     for (let i = 0; i < number; i++) {
-        newGameClasses.push(classes[i]);
-        newGameClasses.push(classes[i]);
+        newGameClasses.push(classes[i], classes[i]);
+        // newGameClasses.push(classes[i]);
     }
     // shuffles the array, so each icon gets random position
     shuffleArray(newGameClasses);
