@@ -179,13 +179,14 @@ const showIcons = function (e) {
 }
 
 function isWinner() {
+    grid.textContent = '';
     grid.remove();
     // CLEAR GLOBAL VARIABLES
     widthGrid = undefined;
     heightGrid = undefined;
     guessedCells = undefined;
     pair = [];
-    showMainMenu();
+    nav.classList.toggle('hide-nav');
 }
 
 const showMainMenu = function () {
