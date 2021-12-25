@@ -59,7 +59,6 @@ const classes = ['fa-star',
     'fa-dog',
     'fa-cloud-showers-heavy',
 ];
-console.log(classes.length);
 
 
 //--- VARIABLES ---
@@ -79,10 +78,10 @@ const homeButton = document.querySelector('.home-button'); // igloo-home-button
 let isGameOver = false; //if game is finished
 let resultTime; //time that takes the user to finish he game in the format hh:mm:ss
 
-console.log(classes.length);
 
 
 //--- FUNCTIONS ---
+
 
 // function to shuffle array
 const shuffleArray = function (array) {
@@ -281,7 +280,11 @@ const showTime = function () {
     // saves minutes and seconds
     let minutes = Math.floor((new Date - resultTime) / 1000 / 60);
     let seconds = Math.floor((new Date - resultTime) / 1000 % 60);
-    return `Your result is 00:${minutes}${seconds}`;
+    if (minutes >= 1 && minutes < 10) minutes = '0' + minutes;
+    else if (minutes == 0) minutes = '00';
+    if (seconds >= 1 && seconds < 10) seconds = '0' + seconds;
+    else if (minutes == 0) minutes = '00';
+    return `Your result is 00:${minutes}:${seconds}`;
 }
 
 // event listener for the home button

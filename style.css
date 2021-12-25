@@ -2,12 +2,9 @@
 
 /* Global */
 :root {
-  --color-light-red: #ff7878;
   --color-dark-red: hsl(0, 70%, 38%);
-  --color-light-green: #38b638;
   --color-dark-green: #102e03;
   --color-light-brown: rgba(210, 197, 160, 0.99);
-  --color-light-blue: rgb(137, 195, 216);
   --font-family: "Indie Flower", cursive;
 }
 * {
@@ -37,7 +34,6 @@ body {
   color: var(--color-dark-red);
   cursor: pointer;
   border-radius: 5px;
-  /* box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2); */
 }
 .container {
   display: flex;
@@ -74,7 +70,6 @@ ul.nav-list {
 }
 .nav-item {
   list-style-type: none;
-  /* font-family: var(--font-family); */
   display: inline;
   border-bottom: 2px solid black;
   transition: 0.5s;
@@ -84,14 +79,14 @@ ul.nav-list {
   cursor: pointer;
   border-bottom: 5px solid var(--color-dark-red);
   transition: 0.5s;
+  color: var(--color-dark-red);
 }
 nav.hide-nav {
   display: none;
 }
 .title {
-  /* font-family: var(--font-family); */
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 10rem;
   font-size: 5.8rem;
 }
 p.result-text {
@@ -101,12 +96,12 @@ p.result-text {
   color: var(--color-dark-red);
 }
 
+/* menus */
 .main-menu {
   width: 50%;
   height: 10%;
   border: 1px solid var(--color-dark-red);
 }
-
 .home-button {
   font-size: 3rem;
   position: absolute;
@@ -124,6 +119,7 @@ p.result-text {
   cursor: pointer;
 }
 
+/* shake animation */
 .wave {
   animation: waveAnimation 1s ease-out infinite;
 }
