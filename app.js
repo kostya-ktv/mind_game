@@ -216,14 +216,14 @@ function isWinner() {
         // CLEAR GLOBAL VARIABLES
         widthGrid, heightGrid, guessedCells = undefined;
         pair = [];
-        // changes boolean because the game was finished
-        isGameOver = true;
+        // changes boolean because the game was finished      
         // show the navigation
         nav.classList.toggle('hide-nav');
         // hide home button
         homeButton.style.visibility = 'hidden';
     }, 500);
     // show the text of rerun/game over
+    isGameOver = true;
     showTitle();
 }
 
