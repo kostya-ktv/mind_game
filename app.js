@@ -163,6 +163,7 @@ const showIcons = function (e) {
     this.children[0].classList.toggle('hidden');
     // push the icon to the pair array to perform equality check
     pair.push(this.children[0]);
+    this.removeEventListener('click', showIcons);
     // start checking icons when we have two
     if (pair.length === 2) {
         // if the first icon's unique class is not equal to the second icon's unique class ->
